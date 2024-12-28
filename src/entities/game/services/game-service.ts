@@ -1,7 +1,9 @@
 import { GameIdleEntity } from "../domain";
 import { gameRepository } from "../repositories/game-repository";
 
-export async function getIdleGames(): Promise<GameIdleEntity[]> {
+async function getIdleGames(): Promise<GameIdleEntity[]> {
     const games = await gameRepository.gameList({ status: "idle" });
     return games as GameIdleEntity[];
 }
+
+export const gameService = { getIdleGames };
