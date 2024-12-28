@@ -20,7 +20,7 @@ model Game {
   winner User? @relation(fields: [winnerId], references: [id])
   field Json?
   winnerId String?
-  gameOverAt DateTime
+  gameOverAt DateTime?
 }
 
 enum GameStatus {

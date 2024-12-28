@@ -9,9 +9,13 @@ export function dbGameToGameEntity(
 ): GameEntity {
     switch (game.status) {
         case "idle": {
+            const [creator] = game.players;
+            if (!creator) {
+                throw new Error("Game has no creator");
+            }
             return {
                 id: game.id,
-                players: game.players,
+                creator: creator,
                 status: game.status,
             } satisfies GameIdleEntity;
         }
