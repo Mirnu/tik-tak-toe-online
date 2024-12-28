@@ -7,7 +7,34 @@ interface GameListParams {
     status?: GameStatus;
 }
 
-async function gameList({ status }: GameListParams): Promise<GameEntity[]> {
+async function createGame({
+    gameId,
+    creatorId,
+}: {
+    gameId: string;
+    creatorId: string;
+}): Promise<GameEntity> {
+    const createdGame = await prisma.game.create({
+        data: {
+            status: "idle",
+            field: Array(9).fill(null),
+            id: gameId,
+            players: {
+                connect: {
+                    id: creatorId,
+                },
+            },
+        },
+        include: {
+            players: true,
+            winner: true,
+        },
+    });
+
+    return dbGameToGameEntity(createdGame);
+}
+
+async function getAllGames({ status }: GameListParams): Promise<GameEntity[]> {
     const games = await prisma.game.findMany({
         where: { status },
         include: {
@@ -19,4 +46,11 @@ async function gameList({ status }: GameListParams): Promise<GameEntity[]> {
     return games.map(dbGameToGameEntity);
 }
 
-export const gameRepository = { gameList };
+async function getGamesByPlayerId(playerId: string, status?: GameStatus) {
+    const games = await prisma.game.findMany({
+        where: { players: { some: { id: playerId } }, status: status },
+    });
+    return games;
+}
+
+export const gameRepository = { getAllGames, createGame, getGamesByPlayerId };
