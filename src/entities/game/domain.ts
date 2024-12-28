@@ -3,38 +3,41 @@ export type GameEntity =
     | GameInProgressEntity
     | GameOverEntity
     | GameOverDrawEntity;
-export type GameIdleEntity = {
+
+type Entity = {
     id: string;
+};
+
+type NotIdleGame = {
+    players: PlayerEntity[];
+    field: Field;
+};
+
+export type GameIdleEntity = {
     creator: PlayerEntity;
     status: "idle";
-};
+} & Entity;
+
 export type GameInProgressEntity = {
-    id: string;
-    players: PlayerEntity[];
-    field: Field;
     status: "inProgress";
-};
+} & Entity &
+    NotIdleGame;
 
 export type GameOverEntity = {
-    id: string;
-    players: PlayerEntity[];
-    field: Field;
     status: "gameOver";
     winner: PlayerEntity;
-};
+} & Entity &
+    NotIdleGame;
 
 export type GameOverDrawEntity = {
-    id: string;
-    players: PlayerEntity[];
-    field: Field;
     status: "gameOverDraw";
-};
+} & Entity &
+    NotIdleGame;
 
 export type PlayerEntity = {
-    id: string;
     login: string;
     rating: number;
-};
+} & Entity;
 
 export type Field = Cell[];
 
