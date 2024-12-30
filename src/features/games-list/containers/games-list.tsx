@@ -1,14 +1,15 @@
 import { gameService } from "@/entities/game/server";
 import { FC } from "react";
 import { GameCard } from "../ui/game-card";
-import { Layout } from "../ui/root-layout";
-import { CreateButton } from "../ui/create-button";
+import { Layout } from "../ui/layout";
+import { CreateButton } from "./create-button";
+import { createGameAction } from "../actions/create-game";
 
 export const GamesList: FC = async () => {
     const games = await gameService.getIdleGames();
 
     return (
-        <Layout actions={<CreateButton action={} />}>
+        <Layout actions={<CreateButton action={createGameAction} />}>
             {games.map((game) => (
                 <GameCard
                     key={game.id}
