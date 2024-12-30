@@ -16,29 +16,6 @@ async function main() {
             passwordHash: "admin2",
         },
     });
-
-    await prisma.game.create({
-        data: {
-            status: "idle",
-            field: Array(9).fill(null),
-            players: {
-                connect: {
-                    id: user.id,
-                },
-            },
-        },
-    });
-    await prisma.game.create({
-        data: {
-            status: "idle",
-            field: Array(9).fill(null),
-            players: {
-                connect: {
-                    id: user2.id,
-                },
-            },
-        },
-    });
 }
 
 main()

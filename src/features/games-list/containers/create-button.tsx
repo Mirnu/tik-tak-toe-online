@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/shared/ui/button";
-import { FC } from "react";
+import { FC, startTransition } from "react";
 import { createGameAction } from "../actions/create-game";
 import { Either, mapLeft, right } from "@/shared/lib/either";
 import { useActionState } from "@/shared/lib/react";
@@ -22,7 +22,7 @@ export const CreateButton: FC<Props> = ({ className }) => {
         <div className={cn(className, "flex flex-col gap-1")}>
             <Button
                 disabled={isPending}
-                onClick={dispatch}
+                onClick={() => startTransition(dispatch)}
                 error={mapLeft(
                     data,
                     (e) =>
