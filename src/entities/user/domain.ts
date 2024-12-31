@@ -5,6 +5,8 @@ export type UserEntity = {
     salt: string;
 } & PlayerEntity;
 
-export type SessionEntity = Omit<PlayerEntity, "rating">;
+export type SessionEntity = Omit<PlayerEntity, "rating"> & {
+    expiredAt: string;
+};
 
 export const DEFAULT_RATING = 1000;

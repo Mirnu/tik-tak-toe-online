@@ -6,15 +6,16 @@ import { SubmitButton } from "../ui/submit-button";
 
 import { BottomLink } from "../ui/link";
 import { useActionState } from "@/shared/lib/react";
-import { SignUpFormState, signUpAction } from "../actions/sign-up";
+import { signUpAction } from "../actions/sign-up";
 
 import { ErrorMessage } from "../ui/error-message";
 import { routes } from "@/kernel/routes";
+import { Either, right } from "@/shared/lib/either";
 
 export function SignUpForm() {
     const [formState, action, isPending] = useActionState(
         signUpAction,
-        {} as SignUpFormState
+        right(undefined)
     );
 
     return (
@@ -22,9 +23,15 @@ export function SignUpForm() {
             title="Sign Up"
             description="Create your account to get started"
             action={action}
-            fields={<AuthFields {...formState} />}
+            fields={<AuthFields />}
             actions={<SubmitButton isPending={isPending}>Sign Up</SubmitButton>}
-            error={<ErrorMessage error={formState.errors?._errors} />}
+            error={
+                <ErrorMessage
+                    error={
+                        formState.type === "left" ? formState.error : undefined
+                    }
+                />
+            }
             link={
                 <BottomLink
                     text="Already have an account?"

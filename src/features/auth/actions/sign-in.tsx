@@ -10,7 +10,7 @@ const formDataSchema = z.object({
     password: z.string().min(3),
 });
 
-export const signUpAction = async (
+export const signInAction = async (
     state: unknown,
     formData: FormData
 ): Promise<Either<string, unknown>> => {
@@ -22,7 +22,7 @@ export const signUpAction = async (
         return left(`Ошибка валидации формы: ${result.error.message}`);
     }
 
-    const createUserResult = await userService.createUser(result.data);
+    const createUserResult = await userService. (result.data);
 
     if (createUserResult.type === "right") {
         await sessionService.addSession(createUserResult.value);

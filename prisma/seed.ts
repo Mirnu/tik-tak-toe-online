@@ -1,22 +1,6 @@
 import { prisma } from "@/shared/lib/db";
 
-async function main() {
-    const user = await prisma.user.create({
-        data: {
-            login: "admin",
-            rating: 1000,
-            passwordHash: "admin",
-        },
-    });
-
-    const user2 = await prisma.user.create({
-        data: {
-            login: "admin2",
-            rating: 1000,
-            passwordHash: "admin2",
-        },
-    });
-}
+async function main() {}
 
 main()
     .then(async () => {
