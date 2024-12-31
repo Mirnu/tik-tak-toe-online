@@ -10,7 +10,7 @@ import { signUpAction } from "../actions/sign-up";
 
 import { ErrorMessage } from "../ui/error-message";
 import { routes } from "@/kernel/routes";
-import { Either, right } from "@/shared/lib/either";
+import { right } from "@/shared/lib/either";
 
 export function SignUpForm() {
     const [formState, action, isPending] = useActionState(
@@ -25,13 +25,7 @@ export function SignUpForm() {
             action={action}
             fields={<AuthFields />}
             actions={<SubmitButton isPending={isPending}>Sign Up</SubmitButton>}
-            error={
-                <ErrorMessage
-                    error={
-                        formState.type === "left" ? formState.error : undefined
-                    }
-                />
-            }
+            error={<ErrorMessage error={formState} />}
             link={
                 <BottomLink
                     text="Already have an account?"

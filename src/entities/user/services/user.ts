@@ -28,7 +28,7 @@ const createUser = async ({ login, password }: LoginPasswordParams) => {
     return right(user);
 };
 
-const verifyUser = async ({ login, password }: LoginPasswordParams) => {
+const verifyUserPassword = async ({ login, password }: LoginPasswordParams) => {
     const user = await userRepository.getUser({ login });
     if (!user) {
         return left("wrong-credentials" as const);
@@ -44,4 +44,4 @@ const verifyUser = async ({ login, password }: LoginPasswordParams) => {
     return right(user);
 };
 
-export const userService = { createUser, verifyUser };
+export const userService = { createUser, verifyUserPassword };

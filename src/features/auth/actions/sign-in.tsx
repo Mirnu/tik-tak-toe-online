@@ -15,24 +15,23 @@ export const signInAction = async (
     formData: FormData
 ): Promise<Either<string, unknown>> => {
     const data = Object.fromEntries(formData.entries());
-
     const result = formDataSchema.safeParse(data);
 
     if (!result.success) {
         return left(`Ошибка валидации формы: ${result.error.message}`);
     }
 
-    const createUserResult = await userService. (result.data);
+    const verifyUserResult = await userService.verifyUserPassword(result.data);
 
-    if (createUserResult.type === "right") {
-        await sessionService.addSession(createUserResult.value);
+    if (verifyUserResult.type === "right") {
+        await sessionService.addSession(verifyUserResult.value);
 
         redirect("/");
     }
 
-    return mapLeft(createUserResult, (error) => {
+    return mapLeft(verifyUserResult, (error) => {
         return {
-            "user-login-exists": "Пользователь с таким логином уже существует",
+            "wrong-credentials": "Неправильный логин или пароль",
         }[error];
     });
 };
