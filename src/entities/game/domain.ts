@@ -1,12 +1,10 @@
+import { Entity } from "../shared/domain";
+
 export type GameEntity =
     | GameIdleEntity
     | GameInProgressEntity
     | GameOverEntity
     | GameOverDrawEntity;
-
-type Entity = {
-    id: string;
-};
 
 type NotIdleGame = {
     players: PlayerEntity[];

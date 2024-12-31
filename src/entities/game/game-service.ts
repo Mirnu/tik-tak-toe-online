@@ -1,6 +1,6 @@
 import cuid from "cuid";
-import { GameIdleEntity, PlayerEntity } from "../domain";
-import { gameRepository } from "../repositories/game-repository";
+import { GameIdleEntity, PlayerEntity } from "./domain";
+import { gameRepository } from "./game-repository";
 import { left, right } from "@/shared/lib/either";
 
 async function getIdleGames(): Promise<GameIdleEntity[]> {

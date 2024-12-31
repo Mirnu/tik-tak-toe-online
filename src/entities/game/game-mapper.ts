@@ -1,5 +1,5 @@
 import { Game, User } from "@prisma/client";
-import { GameEntity, GameIdleEntity, GameOverEntity } from "../domain";
+import { GameEntity, GameIdleEntity, GameOverEntity } from "./domain";
 import { z } from "zod";
 import { removePassword } from "@/shared/lib/password";
 

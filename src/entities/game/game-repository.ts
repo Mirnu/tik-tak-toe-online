@@ -1,6 +1,6 @@
 import { prisma } from "@/shared/lib/db";
-import { GameEntity } from "../domain";
-import { dbGameToGameEntity } from "../maper/game-mapper";
+import { GameEntity } from "./domain";
+import { dbGameToGameEntity } from "./game-mapper";
 import { GameStatus } from "@prisma/client";
 
 interface GameListParams {
