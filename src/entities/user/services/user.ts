@@ -3,6 +3,7 @@ import cuid from "cuid";
 import { DEFAULT_RATING } from "../domain";
 import { userRepository } from "../user-repository";
 import { passwordService } from "./password";
+import { sessionService } from "./session";
 
 interface LoginPasswordParams {
     login: string;
@@ -44,4 +45,9 @@ const verifyUserPassword = async ({ login, password }: LoginPasswordParams) => {
     return right(user);
 };
 
-export const userService = { createUser, verifyUserPassword };
+const getCurrentUser = async () => {
+    const { session } = await sessionService.verifySession();
+    return userRepository.getUser({ id: session.id });
+};
+
+export const userService = { createUser, verifyUserPassword, getCurrentUser };
